@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="#home" class="w3-bar-item w3-button"><b>BR</b> Architects</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="index.html" class="w3-bar-item w3-button">index</a>
+      <a href="java.html" class="w3-bar-item w3-button">java</a>
+      <a href="api.html" class="w3-bar-item w3-button">api</a>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="w3-content w3-center" style="max-width:1564px;">
+
+    <hr>
+้<h3 style="font-weight: bold;">A - Z</h3>  
+<button onclick="printAlphabet()">ตกลง</button>
+<p>🌻🌻🌻</p>
+<p id="demo1"></p>
+<h3 style="font-weight: bold;">Constructor Function: Accumulator(startingValue)</h3>
+  <label for="inputValue">ป้อนตัวเลข:</label>
+  <input type="number" id="inputValue" placeholder="ป้อนตัวเลข">
+  <button onclick="runAccumulator()">ตกลง</button>
+  <p id="demo2"></p>
+<h3 style="font-weight: bold;">คูณเลข</h3>
+  <label for="num1">ป้อนตัวเลข:</label>
+  <input type="number" id="num1" placeholder="ป้อนตัวเลข"><br><br>
+  <label for="num2">ป้อนตัวเลข:</label>
+  <input type="number" id="num2" placeholder="ป้อนตัวเลข">
+  <button onclick="multiplyNumbers()">ตกลง</button>
+  <p id="result"></p>
+<h3 style="font-weight: bold;">แปลงอุณหภูมิ</h3>
+<label for="temperature">ป้อนอุณหภูมิ:</label>
+<input type="number" id="temperature" placeholder="ป้อนอุณหภูมิ">
+<select id="unit">
+  <option value="เซลเซียส">เซลเซียส</option>
+  <option value="ฟาเรนไฮต์">ฟาเรนไฮต์</option>
+</select>
+<button onclick="convertTemperature()">แปลงค่า</button>
+<p id="convertedTemperature"></p>
+<h3 style="font-weight: bold;">ตรวจสอบเกรด:</h3>
+<label for="scoreInput">กรอกคะแนน</label>
+<input type="text" id="scoreInput" placeholder="กรอกคะแนน">
+<button onclick="calculateGrade()">คำนวณเกรด</button>
+<p id="result1"></p>
+<h3 style="font-weight: bold;">แปลงจำนวนวันเป็นวินาที</h3>
+  <label for="daysInput">กรอกจำนวนวัน:</label>
+  <input type="number" id="daysInput" placeholder="จำนวนวัน">
+  <button onclick="convertDaysToSeconds()">แปลงเป็นวินาที</button>
+  <p id="result2"></p>
+<script>
+  function printAlphabet() {
+  let currentCharCode = 'A'.charCodeAt(0);
+
+  const intervalId = setInterval(() => {
+    document.getElementById("demo1").innerHTML = String.fromCharCode(currentCharCode);
+    //console.log(String.fromCharCode(currentCharCode));
+    currentCharCode++;
+
+    if (currentCharCode > 'Z'.charCodeAt(0)) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
+} 
+
+function Accumulator(startingValue) {
+    this.currentValue = startingValue;
+    this.read = function () {
+      const inputValue = document.getElementById("inputValue").value;
+      this.currentValue += +inputValue;
+    };
+
+    this.show = function () {
+      return `Current value is: ${this.currentValue}`;
+    };
+  }
+
+  // กำหนดค่าเริ่มต้นเป็น 10
+  const accumulator = new Accumulator(10);
+
+  function runAccumulator() {
+    accumulator.read();
+    accumulator.show();
+    document.getElementById("demo2").innerHTML = `ตัวเลขตอนนี้คือ: ${accumulator.currentValue}`;
+  }
+
+  const multiplyNum = (x, y) => x * y;
+
+function multiplyNumbers() {
+const num1 = document.getElementById("num1").value;
+const num2 = document.getElementById("num2").value;
+
+const result = multiplyNum(+num1, +num2);
+
+document.getElementById("result").textContent = `คำตอบคือ: ${result}`;
+}
+
+function convertTemperature() {
+    const temperatureInput = document.getElementById("temperature").value;
+    const unitSelect = document.getElementById("unit");
+    const selectedUnit = unitSelect.options[unitSelect.selectedIndex].value;
+
+    let convertedTemperature;
+
+    if (selectedUnit === "celsius") {
+      convertedTemperature = (temperatureInput * 9/5) + 32;
+    } else {
+      convertedTemperature = (temperatureInput - 32) * 5/9;
+    }
+
+    document.getElementById("convertedTemperature").textContent = `อุณหภูมิที่แปลงแล้ว: ${convertedTemperature.toFixed(2)} ${selectedUnit}`;
+  }
+
+  function daysToSeconds(days) {
+      return days * 24 * 60 * 60;
+  }
+
+  function convertDaysToSeconds() {
+      var days = parseFloat(document.getElementById("daysInput").value);
+      var seconds = daysToSeconds(days);
+      document.getElementById("result2").innerHTML = days + " วัน เท่ากับ " + seconds + " วินาที";
+  }
+  function calculateGrade() {
+            var score = parseFloat(document.getElementById("scoreInput").value);
+            var grade = (score >= 80) ? "A" : (score >= 70) ? "B" : (score >= 60) ? "C" : (score >= 50) ? "D" : "F";
+            document.getElementById("result1").innerHTML = "เกรดของคุณคือ: " + grade;
+        }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- https://www.chartjs.org/docs/latest/getting-started/ -->
+<br>
+<iframe width="600" height="371" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS19-LukPzxG2f4weewg3qi6NWXpXExXnOzgMwxubfx0xVoucFZ9o1a1a4zE3pIcJe_e6a8qMLlMK8n/pubchart?oid=1558322160&amp;format=interactive"></iframe>
+<!-- <div>
+  <canvas id="myChart2" ></canvas>
+</div> -->
+
+<!-- https://www.w3schools.com/js/js_graphics_chartjs.asp -->
+<!-- End page content -->
+</div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+
+
+<script>
+  //document.getElementById("demo").innerHTML = "Hello World";
+
+  function printAlphabets() {
+  // สร้างตัวแปรเพื่อเก็บตัวอักษร A-Z
+  const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  // ใช้ forEach เพื่อวนลูปผ่านทุกตัวอักษร
+  alphabets.split('').forEach((alphabet, index) => {
+    // ใช้ setTimeout เพื่อกำหนดระยะเวลาการแสดงผล
+    setTimeout(() => {
+      document.getElementById("demo").innerHTML = alphabet;
+      console.log(alphabet);
+    }, index * 1000); // 1000 milliseconds = 1 วินาที
+  });
+}
+printAlphabets();
+
+  function myFunction() {
+    document.getElementById("demo2").innerHTML = "Hello World";
+}
+
+  function myFunction2() {
+  // Get the value of the input field with id="numb"
+  let x = document.getElementById("numb").value;
+  // If x is Not a Number or less than one or greater than 10
+  let text;
+  if (isNaN(x) || x < 1 || x > 10) {
+    text = "Input not valid";
+  } else {
+    text = "Input OK";
+  }
+  document.getElementById("demo3").innerHTML = text;
+}
+
+
+
+</script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart2');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script> -->
+
+<script>
+  const xyValues = [
+    {x:50, y:7},
+    {x:60, y:8},
+    {x:70, y:8},
+    {x:80, y:9},
+    {x:90, y:9},
+    {x:100, y:9},
+    {x:110, y:10},
+    {x:120, y:11},
+    {x:130, y:14},
+    {x:140, y:14},
+    {x:150, y:15}
+  ];
+  
+  new Chart("myChart", {
+    type: "scatter",
+    data: {
+      datasets: [{
+        pointRadius: 4,
+        pointBackgroundColor: "rgb(0,0,255)",
+        data: xyValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      scales: {
+        xAxes: [{ticks: {min: 40, max:160}}],
+        yAxes: [{ticks: {min: 6, max:16}}],
+      }
+    }
+  });
+</script>
+
+
+</body>
+</html>
